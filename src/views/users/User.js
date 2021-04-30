@@ -3,8 +3,8 @@ import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import axios from "axios";
 import { useHistory, useLocation, Link, useParams } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 import usersData from './UsersData'
 import *as  CONSTANT  from '../../constant'
 const User = ({ match }) => {
@@ -26,9 +26,9 @@ const User = ({ match }) => {
     const res = await axios.get(`${CONSTANT.baseUrl}/api/admin/view-driver?_id=${id}`);
     console.warn("response", res.data)
     if (res.data.code != 200) {
-      toast("Somethig went wrong");
+      // toast("Somethig went wrong");
     } else {
-      toast("Get successfully");
+      // toast("Get successfully");
       setUser(res.data.data);
     }
   }
@@ -37,6 +37,7 @@ const User = ({ match }) => {
       <Link className="btn btn-primary" to="/">
         back to Home
     </Link>
+    <Link className="btn btn-primary mr-2" to={`/user/edit/${user._id}`}> edit </Link>
       <h4 className="display-4">Name: {user.name}</h4>
       {/* <h2 className="display-4">Name: {user.name}</h2> */}
       <hr />
@@ -51,7 +52,7 @@ const User = ({ match }) => {
           user.team.map((item) => <li className="list-group-item">Name: {item.name} || Status : {item.status}</li>) : 0}</li> */}
 
       </ul>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   )
 }
