@@ -1,5 +1,5 @@
 import React from 'react';
-import DAsbosdbjsdf from  './views/dashboard/Dashboard'
+import DAsbosdbjsdf from './views/dashboard/Dashboard'
 // const Toaster = React.lazy(() => import('./views/notifications/toaster/Toaster'));
 // const Tables = React.lazy(() => import('./views/base/tables/Tables'));
 
@@ -41,6 +41,10 @@ const Users = React.lazy(() => import('./views/users/Users'));
 const User = React.lazy(() => import('./views/users/User'));
 const EditUser = React.lazy(() => import('./views/users/editUser'));
 const AddUsers = React.lazy(() => import('./views/users/addUser'));
+const Customers = React.lazy(() => import('./views/customers/customerList'));
+const Walletd = React.lazy(() => import('./views/users/wallets'));
+const Walletc = React.lazy(() => import('./views/customers/wallets'));
+
 const News = React.lazy(() => import('./views/news/news'));
 const Blogs = React.lazy(() => import('./views/blogs/blogs'));
 const AddBlogs = React.lazy(() => import('./views/blogs/addblog'));
@@ -50,18 +54,22 @@ const AddNews = React.lazy(() => import('./views/news/addNews'));
 
 const routes = [
   // { path: '/', exact: true, name: 'Home' },
-  { path: '/', exact: true, name: 'login', component :Login },
+  { path: '/', exact: true, name: 'login', component: Login },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/users/add-users', name: 'Add User', component: AddUsers },
-  { path: '/users', exact: true,  name: 'Users', component: Users },
+  { path: '/users', exact: true, name: 'Users', component: Users },
   { path: '/user/:id', exact: true, name: 'User Details', component: User },
   { path: '/user/edit/:id', exact: true, name: 'Edit User', component: EditUser },
-  { path: '/news', exact: true, name: 'news', component: News },
-  { path: '/blogs', exact: true, name: 'blogs', component: Blogs },
-  { path: '/add/blogs', exact: true, name: 'AddBlogs', component: AddBlogs },
-  { path: '/add/news', exact: true, name: 'AddNews', component: AddNews }
- 
-//  { path: '/users', name: 'users', component: Cards, exact: true },
+  { path: '/wallet-d', exact: true, name: 'walletd', component: Walletd },
+  { path: '/wallet-c', exact: true, name: 'walletc', component: Walletc },
+  { path: '/customers', exact: true, name: 'customers', component: Customers }
+  //=====================================================================//
+
+  //  { path: '/news', exact: true, name: 'news', component: News },
+  //  { path: '/blogs', exact: true, name: 'blogs', component: Blogs },
+  //  { path: '/add/blogs', exact: true, name: 'AddBlogs', component: AddBlogs },
+  //  { path: '/add/news', exact: true, name: 'AddNews', component: AddNews },
+  //  { path: '/users', name: 'users', component: Cards, exact: true },
   // { path: '/theme', name: 'Theme', component: Colors, exact: true },
   // { path: '/theme/colors', name: 'Colors', component: Colors },
   // { path: '/theme/typography', name: 'Typography', component: Typography },
@@ -98,7 +106,7 @@ const routes = [
   // { path: '/notifications/modals', name: 'Modals', component: Modals },
   // { path: '/notifications/toaster', name: 'Toaster', component: Toaster },
   // { path: '/widgets', name: 'Widgets', component: Widgets },
- 
+
 ];
 
 export default routes;

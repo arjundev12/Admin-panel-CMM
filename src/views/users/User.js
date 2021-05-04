@@ -7,7 +7,9 @@ import { useHistory, useLocation, Link, useParams } from 'react-router-dom'
 // import 'react-toastify/dist/ReactToastify.css';
 import usersData from './UsersData'
 import *as  CONSTANT from '../../constant'
+import { Button, Table } from 'react-bootstrap'
 import '../../css/style.css'
+import image from '../../assets/download.png'
 const User = ({ match }) => {
   // const user = usersData.find( user => user.id.toString() === match.params.id)
   const [user, setUser] = useState({
@@ -15,7 +17,9 @@ const User = ({ match }) => {
     name: "",
     loginType: "",
     address: "",
-    phoneNo: ""
+    phoneNo: "",
+    Documents:[],
+    vechileList:[]
   });
 
   useEffect(() => {
@@ -28,6 +32,7 @@ const User = ({ match }) => {
     console.warn("response", res.data)
     if (res.data.code != 200) {
       // toast("Somethig went wrong");
+      console.warn(res.data)
     } else {
       // toast("Get successfully");
       setUser(res.data.data);
@@ -68,7 +73,7 @@ const User = ({ match }) => {
                   <div class="col-sm-3 DetailsLeft">
                     <div class="DetailsLeftProfile">
                       <figure>
-                        <img src="assets/icons/download.png" />
+                        <img src={image} height ={100} width= {100} />
                       </figure>
                       <h3> {user.name} </h3>
                       <p> {user.loginType}</p>
@@ -142,18 +147,18 @@ const User = ({ match }) => {
                               </li>
 
                               <li>
-                                <span class="Title">subscription </span>
+                                <span class="Title">Subscription </span>
                                 <span class="Discribe">{user.subscription + ""}</span>
                               </li>
 
-                              <li>
-                                <span class="Title">Website </span>
-                                <span class="Discribe">www.kumarpankaj.com</span>
-                              </li>
-                              <li>
-                                <span class="Title">vehicle List </span>
+                              {/* <li>
+                                <span class="Title">View Documents </span>
                                 <Link className="btn btn-primary" to="/">Go to list</Link>
                               </li>
+                              <li>
+                                <span class="Title">Vehicle List </span>
+                                <Link className="btn btn-primary" to="/">Go to list</Link>
+                              </li> */}
 
 
                               <li>
@@ -171,11 +176,74 @@ const User = ({ match }) => {
                         </div>
                       </div>
 
-
+                      <div class="tadble-detail">
+                      <h2>Documents</h2>
+                    <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>S.no</th>
+                        <th>Name</th>
+                        <th>Front_Id</th>
+                        <th>Back_Id</th>
+                        <th>status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        user.Documents.map((item, i) => <tr>
+                            <td>{i+1}</td>
+                            <td>{item.name}</td>
+                            <td><img src={CONSTANT.img_url+item.front_Id} height ={30} width= {30} /></td>
+                            <td><img src={CONSTANT.img_url+item.back_Id} height ={30} width= {30} /></td>
+                            <td>{item.status}</td>
+                            <td>
+                              {/* <Link className="btn btn-primary mr-2 " to={`/user/${item._id}`}>view </Link> */}
+                                <Link className="btn btn-primary mr-2" to={`/user/edit/${user._id}`}>Edit</Link>
+                                {/* <Link className="btn btn-primary " to="/"> delete</Link> */}
+                                </td>
+                        </tr>)
+}
+                </tbody>
+            </Table>
+                    </div>
+                    <div class="tadble-detail">
+                    <h2>Vehicle List</h2>
+                    <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>S.no</th>
+                        <th>Vehicle Type </th>
+                        <th>Vehicle Number</th>
+                        {/* <th>Document status</th> */}
+                        {/* <th>address</th>
+                         */}
+                         <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                     user.vechileList.map((item, i) => 
+                         <tr>
+                            <td>{i+1}</td>
+                            <td>{item.vehicle_type}</td>
+                            <td>{item.vehicle_number}</td>
+                            <td> <Link className="btn btn-primary mr-2" to={`/user/edit/${user._id}`}>Edit</Link></td>
+                            {/* <td>address</td> */}
+                           
+                        </tr>)
+}
+                    {/* }  */}
+                </tbody>
+            </Table>
+                    </div>
 
 
                     </div>
+            
+                    
                   </div>
+                  
 
                 </div>
               </div>
