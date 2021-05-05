@@ -150,11 +150,12 @@ const User = ({ match }) => {
                                 <span class="Title">Subscription </span>
                                 <span class="Discribe">{user.subscription + ""}</span>
                               </li>
-
-                              {/* <li>
+                              <li>
                                 <span class="Title">View Documents </span>
-                                <Link className="btn btn-primary" to="/">Go to list</Link>
+                                <Link className="btn btn-primary" to={`/view/doc/${user._id}`}>Click Here</Link>
                               </li>
+                              {/* 
+                              
                               <li>
                                 <span class="Title">Vehicle List </span>
                                 <Link className="btn btn-primary" to="/">Go to list</Link>

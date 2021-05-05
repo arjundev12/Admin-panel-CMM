@@ -5,6 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 // import 'react-toastify/dist/ReactToastify.css';
 import *as  CONSTANT from '../../constant'
 import '../../css/style.css'
+import image from '../../assets/download.png'
 const EditUser = () => {
     let history = useHistory();
     const { id } = useParams();
@@ -23,7 +24,7 @@ const EditUser = () => {
         isNumberVerify,
         isDocumentVerify,
         city_id
-     } = user;
+    } = user;
     const onInputChange = e => {
         setUser({ ...user, [e.target.name]: e.target.value });
         console.warn("oninput change data ", user)
@@ -36,7 +37,7 @@ const EditUser = () => {
     const onSubmit = async e => {
         e.preventDefault();
         console.log("request", user)
-        let data ={}
+        let data = {}
         // = user
 
 
@@ -73,7 +74,7 @@ const EditUser = () => {
         if (user.city_id) {
             data.city = user.city_id
         }
-        
+
         data._id = user._id
         // data.login_type = 'manual'
         console.log("daaaaaaa", data)
@@ -83,7 +84,7 @@ const EditUser = () => {
             setTimeout(function () { history.push("/users"); }, 3000);
             // history.push("/users");
         }
-        else{
+        else {
             console.warn(response)
         }
     };
@@ -132,7 +133,22 @@ const EditUser = () => {
                         <div class="UserArea">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-3 UserLeft">
+
+                                        <form>
+                                            <figure>
+                                                <img src={image} />
+                                            </figure>
+
+                                            <figcaption>
+                                                <span><i class="fa fa-upload" aria-hidden="true"></i>Upload Images</span>
+                                                <input type="file" name="" />
+                                                <button><i class="fa fa-check" aria-hidden="true"></i></button>
+                                            </figcaption>
+                                        </form>
+
+                                    </div>
+                                    <div class="col-sm-9">
                                         <div class="UserRight">
                                             <h3>Edit Details</h3>
                                             <form onSubmit={e => onSubmit(e)}>
@@ -162,7 +178,7 @@ const EditUser = () => {
                                                     </div>
                                                     <div class="form-group col-sm-6">
                                                         <label>isVehicleComplete</label>
-                                                        <select class="form-control"  name="isVehicleComplete" value={isVehicleComplete}
+                                                        <select class="form-control" name="isVehicleComplete" value={isVehicleComplete}
                                                             onChange={e => onInputChange(e)}>
                                                             <option value={true}>true</option>
                                                             <option value={false}>false</option>
@@ -170,7 +186,7 @@ const EditUser = () => {
                                                     </div>
                                                     <div class="form-group col-sm-6">
                                                         <label>isNumberVerify</label>
-                                                        <select class="form-control"   name="isNumberVerify" value={isNumberVerify}
+                                                        <select class="form-control" name="isNumberVerify" value={isNumberVerify}
                                                             onChange={e => onInputChange(e)}>
                                                             <option value={true}>true</option>
                                                             <option value={false}>false</option>
@@ -180,8 +196,8 @@ const EditUser = () => {
                                                         <label>isDocumentVerify</label>
                                                         <select class="form-control" name="isDocumentVerify" value={isDocumentVerify}
                                                             onChange={e => onInputChange(e)}>
-                                                            <option value= "verified">verified</option>
-                                                            <option value= "rejected">rejected</option>
+                                                            <option value="verified">verified</option>
+                                                            <option value="rejected">rejected</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-sm-6">
@@ -206,7 +222,7 @@ const EditUser = () => {
                                                         <input type="text" name="address" class="form-control" placeholder="" value={address}
                                                             onChange={e => onInputChange(e)} />
                                                     </div> */}
-                                                       <div class="form-group col-sm-6">
+                                                    <div class="form-group col-sm-6">
                                                         <label>Loging Type</label>
                                                         <select class="form-control" name="loginType" value={loginType}
                                                             onChange={e => onInputChange(e)}>

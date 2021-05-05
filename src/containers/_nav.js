@@ -1,6 +1,6 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import Wallet from 'src/views/users/wallets'
+import Wallet from 'src/views/wallets/wallets'
 
 const _nav = [
   {
@@ -31,7 +31,7 @@ const _nav = [
       {
         _tag: 'CSidebarNavItem',
         name: 'Wallets',
-        to: '/wallet-d',
+        to: '/wallets/driver',
       },
 
     ]
@@ -50,7 +50,7 @@ const _nav = [
       {
         _tag: 'CSidebarNavItem',
         name: 'Wallets',
-        to: '/wallet-c',
+        to: '/wallets/customer',
       },
 
     ]

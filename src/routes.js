@@ -42,14 +42,17 @@ const User = React.lazy(() => import('./views/users/User'));
 const EditUser = React.lazy(() => import('./views/users/editUser'));
 const AddUsers = React.lazy(() => import('./views/users/addUser'));
 const Customers = React.lazy(() => import('./views/customers/customerList'));
-const Walletd = React.lazy(() => import('./views/users/wallets'));
-const Walletc = React.lazy(() => import('./views/customers/wallets'));
+const Wallet = React.lazy(() => import('./views/wallets/wallets'));
+const ViewWallet = React.lazy(() => import('./views/wallets/viewWallet'));
+const EditProfile = React.lazy(() => import('./views/customers/editProfile'));
+
 
 const News = React.lazy(() => import('./views/news/news'));
 const Blogs = React.lazy(() => import('./views/blogs/blogs'));
 const AddBlogs = React.lazy(() => import('./views/blogs/addblog'));
 const Login = React.lazy(() => import('./views/pages/login/Login'));
 const AddNews = React.lazy(() => import('./views/news/addNews'));
+const ViewDoc = React.lazy(()=> import('./views/users/viewDoc'))
 
 
 const routes = [
@@ -60,9 +63,11 @@ const routes = [
   { path: '/users', exact: true, name: 'Users', component: Users },
   { path: '/user/:id', exact: true, name: 'User Details', component: User },
   { path: '/user/edit/:id', exact: true, name: 'Edit User', component: EditUser },
-  { path: '/wallet-d', exact: true, name: 'walletd', component: Walletd },
-  { path: '/wallet-c', exact: true, name: 'walletc', component: Walletc },
-  { path: '/customers', exact: true, name: 'customers', component: Customers }
+  { path: '/wallets/:type', exact: true, name: 'walletd', component: Wallet },
+  { path: '/wallet/:id/:type', exact: true, name: 'ViewWallet', component: ViewWallet },
+  { path: '/customers', exact: true, name: 'customers', component: Customers },
+  { path: '/customer/edit/:id', exact: true, name: 'editProfile', component: EditProfile },
+  { path: '/view/doc/:id', exact: true, name: 'viewDoc', component: ViewDoc }
   //=====================================================================//
 
   //  { path: '/news', exact: true, name: 'news', component: News },

@@ -3,65 +3,197 @@ import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import axios from "axios";
 import { useHistory, useLocation, Link, useParams } from 'react-router-dom'
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import usersData from './UsersData'
 import *as  CONSTANT from '../../constant'
 import { Button, Table } from 'react-bootstrap'
 import '../../css/style.css'
 import image from '../../assets/download.png'
-const User = ({ match }) => {
+const ViewDoc = ({ match }) => {
+  let history = useHistory();
   // const user = usersData.find( user => user.id.toString() === match.params.id)
   const [user, setUser] = useState({
-    id: "",
-    name: "",
-    loginType: "",
-    address: "",
-    phoneNo: "",
-    Documents:[],
-    vechileList:[]
-  });
+    identity_card: {},
+    driving_licence: {},
+    registration_certificate: {},
+    owner: {}
 
+  });
+  const [status, setStatus] = useState({
+    _id: "",
+    isDocumentVerify: ""
+  });
+  const { id } = useParams();
   useEffect(() => {
-    console.warn("params", match.params.id)
-    getdata(match.params.id)
+    // console.warn("params", match.params.id)
+    getdata()
   }, []);
-  const getdata = async (id) => {
-    console.log("process.env.NODE_ENV", process.env.NODE_ENV)
-    const res = await axios.get(`${CONSTANT.baseUrl}/api/admin/view-driver?_id=${id}`);
-    console.warn("response", res.data)
+  const getdata = async () => {
+
+    const res = await axios.get(`${CONSTANT.baseUrl}/api/admin/view-doc?_id=${id}`);
+    console.warn("responseviewDoc", res.data)
     if (res.data.code != 200) {
-      // toast("Somethig went wrong");
+      toast("Somethig went wrong");
       console.warn(res.data)
     } else {
-      // toast("Get successfully");
-      setUser(res.data.data);
+      toast("Get successfully");
+      await setUser(res.data.data);
+      await setStatus(res.data.data.owner)
+      console.warn("set stattatatat", status)
+
     }
   }
- 
-  return (
-    <div className="container py-4">
-      <Link className="btn btn-primary" to={"/user"}>
-        back
-    </Link>
-    <Link className="btn btn-primary mr-2" to={`/user/edit/${user._id}`}> edit </Link>
-      <h4 className="display-4">Name: {user.name}</h4>
-      {/* <h2 className="display-4">Name: {user.name}</h2> */}
-      <hr />
-      <ul className="list-group w-50">
-        <li className="list-group-item">Id: {user._id}</li>
-        <li className="list-group-item">Name: {user.name}</li>
-        {/* <li className="list-group-item">Username: {user.username}</li> */}
-        <li className="list-group-item">Number: {user.phoneNo}</li>
-        <li className="list-group-item">Type: {user.loginType + ""}</li>
-        <li className="list-group-item">Address: {user.address}</li>
-        {/* <li className="list-group-item">Team: {user.team.length > 0 ?
-          user.team.map((item) => <li className="list-group-item">Name: {item.name} || Status : {item.status}</li>) : 0}</li> */}
+  const onSubmit = async e => {
+    e.preventDefault();
+    console.warn("onsubmit", e)
+    let data = {}
+    if (status.isDocumentVerify) {
+      data.isDocumentVerify = status.isDocumentVerify
+    }
+    data._id = status._id
+    console.log("daaaaaaa", data)
+    let response = await axios.put(`${CONSTANT.baseUrl}/api/admin/update-driver`, data);
+    // console.log("daaaaaaa", response)
+    // history.push(`/user/${user.owner._id}`);
+      // setTimeout(function () { history.push("/users"); }, 50000);
 
-      </ul>
-      {/* <ToastContainer /> */}
-    </div>
+    if (response.data.code == 200) {
+      toast("Update successfully");
+      history.push(`/user/${user.owner._id}`);
+    }
+    else {
+      toast("Somthing went wrong");
+      console.warn(response)
+    }
+  }
+  const onInputChange = async e => {
+    console.warn("oninput change data before ", status)
+    await setStatus({
+      _id: status._id,
+      isDocumentVerify: e.target.value
+    });
+    console.warn("oninput change data after ", status)
+  };
+
+  return (
+    <>
+      {/* <!DOCTYPE html> */}
+      <html lang="en">
+
+        <body>
+          <div class="hh"> <Link className="btn btn-primary" to={`/user/${user.owner._id}`}>back</Link></div>
+
+          <div class="home-doctors  clearfix">
+
+            <div class="container">
+
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6  text-center doc-item">
+                  <div class="common-doctor animated fadeInUp clearfix ae-animation-fadeInUp">
+
+                    <figure>
+                      <img width="670" height="300" src={user.identity_card ? CONSTANT.img_url + user.identity_card.front_Id : null} class="doc-img animate attachment-gallery-post-single wp-post-image" alt="doctor-2" />
+                    </figure>
+
+                    <div class="text-content">
+                      <h5>Identity Card</h5>
+                      <h5><small>Front Id</small></h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6  text-center doc-item">
+                  <div class="common-doctor animated fadeInUp clearfix ae-animation-fadeInUp">
+
+                    <figure>
+                      <img width="670" height="300" src={user.identity_card ? CONSTANT.img_url + user.identity_card.back_Id : null} class="doc-img animate attachment-gallery-post-single wp-post-image" alt="doctor-2" />
+                    </figure>
+
+                    <div class="text-content">
+                      <h5>Identity Card</h5>
+                      <h5><small>Back Id</small></h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6  text-center doc-item">
+                  <div class="common-doctor animated fadeInUp clearfix ae-animation-fadeInUp">
+
+                    <figure>
+                      <img width="670" height="300" src={user.driving_licence ? CONSTANT.img_url + user.driving_licence.front_Id : null} class="doc-img animate attachment-gallery-post-single wp-post-image" alt="doctor-2" />
+                    </figure>
+
+                    <div class="text-content">
+                      <h5>Driving Licence</h5>
+                      <h5><small>Front Id</small></h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6  text-center doc-item">
+                  <div class="common-doctor animated fadeInUp clearfix ae-animation-fadeInUp">
+
+                    <figure>
+                      <img width="670" height="300" src={user.driving_licence ? CONSTANT.img_url + user.driving_licence.back_Id : null} class="doc-img animate attachment-gallery-post-single wp-post-image" alt="doctor-2" />
+                    </figure>
+
+                    <div class="text-content">
+                      <h5>Driving Licence</h5>
+                      <h5><small>Back Id</small></h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6  text-center doc-item">
+                  <div class="common-doctor animated fadeInUp clearfix ae-animation-fadeInUp">
+
+                    <figure>
+                      <img width="670" height="300" src={user.registration_certificate ? CONSTANT.img_url + user.registration_certificate.front_Id : null} class="doc-img animate attachment-gallery-post-single wp-post-image" alt="doctor-2" />
+                    </figure>
+
+                    <div class="text-content">
+                      <h5>Registration Certificate</h5>
+                      <h5><small>Front Id</small></h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6  text-center doc-item">
+                  <div class="common-doctor animated fadeInUp clearfix ae-animation-fadeInUp">
+                    <figure>
+                      <img width="670" height="300" src={user.registration_certificate ? CONSTANT.img_url + user.registration_certificate.back_Id : null} class="doc-img animate attachment-gallery-post-single wp-post-image" alt="doctor-2" />
+                    </figure>
+
+                    <div class="text-content">
+                      <h5>Registration Certificate</h5>
+                      <h5><small>Back Id</small></h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="visible-sm clearfix margin-gap">
+                </div>
+              </div>
+            </div>
+          </div>
+          <form  >
+            <div class="form-group col-sm-6">
+              <label>Status</label>
+              <select class="form-control" name="isDocumentVerify" value={status.isDocumentVerify} onChange={e => onInputChange(e)}
+              >
+                <option value="notupload">notupload</option>
+                <option value="uploade">uploade</option>
+                <option value="verified">verified</option>
+                <option value="rejected">rejected</option>
+
+              </select>
+                <button class ="btn-sumbit" onClick={e=> onSubmit(e)}>Submit</button>
+            </div>
+          </form>
+        </body>
+        {/* <Button className="btn btn-primary" value= "true">Current Status</Button>
+        <Button className="btn btn-primary" value= "verify">Verify</Button>
+        <Button className="btn btn-primary" value= "reject">Reject</Button>
+        <Button className="btn btn-primary" value= "pending">Pending</Button> */}
+      </html>
+      <ToastContainer />
+    </>
   )
 }
 
-export default User
+export default ViewDoc
