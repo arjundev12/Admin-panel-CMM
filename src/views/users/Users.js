@@ -14,7 +14,7 @@ const Users = () => {
     const [page, setPage] = useState(1);
     const [index, setIndex] = useState(1);
 
-    const [user, setUser] = useState([]);
+    let [user, setUser] = useState([]);
     const { id } = useParams();
     useEffect(() => {
         loadUser(page);
@@ -26,14 +26,14 @@ const Users = () => {
         }
         const res = await axios.post(`${CONSTANT.baseUrl}/api/admin/get-driver`, data);
         console.warn("respons", res.data.data)
-        if(res.data.code ==200){
-            toast("List get successfully")
+        if (res.data.code == 200) {
+            // toast("List get successfully")
             await setTotal(res.data.data.total)
             await setUser(res.data.data.docs);
-        }else{
+        } else {
             toast("somthing went wrong")
         }
-        
+
     };
 
     const onPaginationChange = (start, end) => {
@@ -45,10 +45,24 @@ const Users = () => {
     //     console.warn("inside handle click", item)
     //     // history.push(`/user/${item._id}  `)
     // }
+    const onInputChange = async (e, item) => {
+        console.warn("oninput change data ",  item)
+        let data = {}
+        data.isDocumentVerify = e.target.value
+        data._id = item._id
+        let response = await axios.put(`${CONSTANT.baseUrl}/api/admin/update-driver`, data);
+        if(response.data.code ==200){
+            toast( response.data.message)
+            loadUser(page)
+        }else{
+            toast("somthing went wrong")
+        }
+      
+    };
 
     return (
         <div>
-            <Link className="btn btn-primary" to="/">
+            <Link className="btn btn-primary back" to="/">
                 back to Home
        </Link>
             <Table striped bordered hover>
@@ -56,20 +70,29 @@ const Users = () => {
                     <tr>
                         <th>S.no</th>
                         <th>Name</th>
-                        <th>Type</th>
+                        <th>Profile Complete</th>
                         <th>Number</th>
                         <th>address</th>
+                        <th>Doc Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         user.map((item, i) => <tr>
-                            <td>{i+index+1}</td>
+                            <td>{i + index + 1}</td>
                             <td>{item.name ? item.name : null}</td>
-                            <td>{item.loginType}</td>
+                            <td>{item.isProfileCompleted == true ? "Yes" : "No"}</td>
                             <td>{item.phoneNo}</td>
                             <td>{item.address}</td>
+                            <td>
+                                <select class="form-control" name="isDocumentVerify" value={item.isDocumentVerify}
+                                    onChange={e => onInputChange(e, item)}>
+                                    <option value="uploade">Uploade</option>
+                                    <option value="notupload">Notupload</option>
+                                    <option value="verified">Verified</option>
+                                    <option value="rejected">Rejected</option>
+                                </select></td>
                             <td><Link className="btn btn-primary mr-2 " to={`/user/${item._id}`}>view </Link>
                                 <Link className="btn btn-primary mr-2" to={`/user/edit/${item._id}`}> edit </Link>
                                 {/* <Link className="btn btn-primary " to="/"> delete</Link> */}
@@ -77,7 +100,7 @@ const Users = () => {
                         </tr>)
                     }
                 </tbody>
-              
+
             </Table>
             <ToastContainer />
             <Pagination

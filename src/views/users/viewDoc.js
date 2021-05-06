@@ -82,7 +82,7 @@ const ViewDoc = ({ match }) => {
       <html lang="en">
 
         <body>
-          <div class="hh"> <Link className="btn btn-primary" to={`/user/${user.owner._id}`}>back</Link></div>
+          <div class="hh"> <Link className="btn btn-primary btn-prim" to={`/user/${user.owner._id}`}>back</Link></div>
 
           <div class="home-doctors  clearfix">
 
@@ -171,18 +171,18 @@ const ViewDoc = ({ match }) => {
               </div>
             </div>
           </div>
-          <form  >
-            <div class="form-group col-sm-6">
-              <label>Status</label>
-              <select class="form-control" name="isDocumentVerify" value={status.isDocumentVerify} onChange={e => onInputChange(e)}
+          <form class="btn-form" >
+            <div class="form-group col-sm-12">
+              {/* <label"">Status</label> */}
+              <h4 class="heading-status"><select class="form-control fron-select" name="isDocumentVerify" value={status.isDocumentVerify} onChange={e => onInputChange(e)}
               >
                 <option value="notupload">notupload</option>
                 <option value="uploade">uploade</option>
                 <option value="verified">verified</option>
                 <option value="rejected">rejected</option>
 
-              </select>
-                <button class ="btn-sumbit" onClick={e=> onSubmit(e)}>Submit</button>
+              </select> <button class ="btn-sumbit" onClick={e=> onSubmit(e)}>Submit</button></h4>
+                
             </div>
           </form>
         </body>

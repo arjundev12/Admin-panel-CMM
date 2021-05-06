@@ -1,5 +1,4 @@
 import React from 'react';
-import DAsbosdbjsdf from './views/dashboard/Dashboard'
 // const Toaster = React.lazy(() => import('./views/notifications/toaster/Toaster'));
 // const Tables = React.lazy(() => import('./views/base/tables/Tables'));
 
@@ -56,8 +55,8 @@ const ViewDoc = React.lazy(()=> import('./views/users/viewDoc'))
 
 
 const routes = [
-  // { path: '/', exact: true, name: 'Home' },
-  { path: '/', exact: true, name: 'login', component: Login },
+  { path: '/', exact: true, name: 'Home' },
+  // { path: '/', exact: true, name: 'login', component: Login },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/users/add-users', name: 'Add User', component: AddUsers },
   { path: '/users', exact: true, name: 'Users', component: Users },

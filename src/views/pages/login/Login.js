@@ -4,7 +4,6 @@ import { withRouter } from "react-router";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import navigation from '../../../containers/_nav'
 import *as  CONSTANT  from '../../../constant'
 import {
   CButton,
@@ -34,14 +33,13 @@ const Login = (props) => {
     const res = await axios.post(`${CONSTANT.baseUrl}/api/admin/login`, newEntry);
     console.warn(res.data)
     if (res.data.code == 200) {
-      toast("Get successfully");
-      // let to = '/dashboard'
-      setTimeout(function(){history.push('/dashboard'); }, 2000);
-      
-      //  <Redirect to='/dashboard' />;
+      localStorage.setItem('Auth', true);
+      toast("Login successfully");
 
-      // if (res.data.code == 200) {
-      // }
+      setTimeout(function(){history.push('/'); }, 2000);
+      
+    }else{
+      toast(res.data.message);
     }
     console.warn(allEntry)
   }

@@ -9,9 +9,9 @@ const ViewWallet = ({ match }) => {
     const [wallet, setWallet] = useState({});
     const { id, type } = useParams();
     useEffect(() => {
-        getdata()
+        getWallet()
     }, []);
-    const getdata = async () => {
+    const getWallet = async () => {
         const res = await axios.get(`${CONSTANT.baseUrl}/api/admin/view-wallet?_id=${id}&type=${type}`);
         console.warn("response", res.data)
         if (res.data.code != 200) {

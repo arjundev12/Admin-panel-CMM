@@ -18,42 +18,42 @@ const _nav = [
   //   _children: ['Components']
   // },
   {
-    _tag: 'CSidebarNavDropdown',
+    _tag: 'CSidebarNavItem',
     name: 'Driver',
     to: '/users',
     icon: 'cil-puzzle',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Drivers',
-        to: '/users',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Wallets',
-        to: '/wallets/driver',
-      },
+    // _children: [
+    //   {
+    //     _tag: 'CSidebarNavItem',
+    //     name: 'Drivers',
+    //     to: '/users',
+    //   },
+    //   {
+    //     _tag: 'CSidebarNavItem',
+    //     name: 'Wallets',
+    //     to: '/wallets/driver',
+    //   },
 
-    ]
+    // ]
   },
   {
-    _tag: 'CSidebarNavDropdown',
+    _tag: 'CSidebarNavItem',
     name: 'Customers',
     to: '/customers',
     icon: 'cil-puzzle',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Customers',
-        to: '/customers',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Wallets',
-        to: '/wallets/customer',
-      },
+    // _children: [
+    //   {
+    //     _tag: 'CSidebarNavItem',
+    //     name: 'Customers',
+    //     to: '/customers',
+    //   },
+    //   {
+    //     _tag: 'CSidebarNavItem',
+    //     name: 'Wallets',
+    //     to: '/wallets/customer',
+    //   },
 
-    ]
+    // ]
   },
   // {
   //   _tag: 'CSidebarNavItem',

@@ -17,6 +17,10 @@ body {
 .clearfix {
  *zoom: 1;
 }
+
+a.btn.btn-primary.back {
+    margin-bottom: 10px;
+}
 .clearfix:before, .clearfix:after {
 	display: table;
 	content: "";
@@ -214,7 +218,32 @@ p {
 }
 .UserArea {
 	padding: 50px 0;
-	background-color: whitesmoke;
+}
+.btn-form {
+	float: right;
+}
+.hh a {
+    margin-left: 14px;
+    margin-bottom: 10px;
+}
+
+button.btn-sumbit {
+    float: right;
+    padding: 6px 10px;
+    margin-bottom: 12px;
+    margin-top: 2px;
+    border-radius: 6px;
+}
+
+select.form-control.fron-select {
+    width: 500px;
+    float: left;
+    margin-right: 6px;
+}
+h4.heading-status {
+    margin-top: 10px;
+    vertical-align: middle;
+    font-size: 26px;
 }
 .UserArea .UserLeft {
 	box-shadow: 0px 3px 10px #ddd;
@@ -270,6 +299,25 @@ p {
 }
 .form-doc{
 	
+}
+.c-main {
+    background: #e2e8f0;
+}
+i.fa.fa-pencil.mr-10 {
+    margin-right: 95px;
+}
+.DetailsRight a {
+    float: right;
+    margin-top: -50px;
+}
+i.fa.fa-pencil {
+    float: right;
+    margin-top: -46px;
+    margin-right: 70px;
+    font-size: 26px;
+}
+.verifi {
+    float: right;
 }
 .btn-sumbit {
 	display: inline-block;

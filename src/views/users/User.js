@@ -18,24 +18,37 @@ const User = ({ match }) => {
     loginType: "",
     address: "",
     phoneNo: "",
-    Documents:[],
-    vechileList:[]
+    Documents: [],
+    vechileList: []
   });
-
+  const [wallet, setWallet] = useState({});
+  const { id } = useParams();
   useEffect(() => {
-    console.warn("params", match.params.id)
-    getdata(match.params.id)
+    // console.warn("params", match.params.id)
+    getdata()
+    getWallet()
   }, []);
-  const getdata = async (id) => {
+  const getdata = async () => {
     console.log("process.env.NODE_ENV", process.env.NODE_ENV)
     const res = await axios.get(`${CONSTANT.baseUrl}/api/admin/view-driver?_id=${id}`);
-    console.warn("response", res.data)
+    console.warn("response user", res.data)
     if (res.data.code != 200) {
       // toast("Somethig went wrong");
       console.warn(res.data)
     } else {
       // toast("Get successfully");
       setUser(res.data.data);
+    }
+  }
+  const getWallet = async () => {
+    const res = await axios.get(`${CONSTANT.baseUrl}/api/admin/view-wallet?_id=${id}&type=driver`);
+    console.warn("response wallet", res.data)
+    if (res.data.code != 200) {
+      // toast("Somethig went wrong");
+      console.warn(res.data)
+    } else {
+      // toast("Get successfully");
+      setWallet(res.data.data);
     }
   }
   return (
@@ -66,14 +79,18 @@ const User = ({ match }) => {
         </head>
 
         <body>
+
           <section>
+            <div class="verifi">
+
+            </div>
             <div class="DetailsArea">
               <div class="container">
                 <div class="row">
                   <div class="col-sm-3 DetailsLeft">
                     <div class="DetailsLeftProfile">
                       <figure>
-                        <img src={image} height ={100} width= {100} />
+                        <img src={image} height={100} width={100} />
                       </figure>
                       <h3> {user.name} </h3>
                       <p> {user.loginType}</p>
@@ -90,8 +107,9 @@ const User = ({ match }) => {
 
                   <div class="col-sm-9">
                     <div class="DetailsRight">
-                      <h3>Information</h3>
-
+                      <h3>Profile Information</h3>
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                      <Link className="btn btn-primary mr-2" to={`/user/edit/${user._id}`}> Edit </Link>
                       {/* <p>With a knack for connecting dots and uncovering trends, Lisa finds unique opportunities for brands to reach consumers in new ways that inspire and motivate them to act. Lisa has more than 15 years of agency and client-side experience translating business strategy into integra ted, multi-channel marketing communications campaigns for some of the world’s most beloved brands.</p> */}
                       <div class="DetailsContent">
                         <div class="row">
@@ -118,23 +136,24 @@ const User = ({ match }) => {
                               </li>
 
                               <li>
-                                <span class="Title">Login Type</span>
+                                <span class="Title">Driver Type</span>
                                 <span class="Discribe">{user.loginType}</span>
                               </li>
 
                               <li>
                                 <span class="Title">Profile Completed</span>
-                                <span class="Discribe">{user.isProfileCompleted + ""}</span>
+                                <span class="Discribe">{user.isProfileCompleted == true ? "Yes" : "No"}</span>
                               </li>
-                              <li>
-                                <span class="Title">Document Verification </span>
-                                <span class="Discribe">{user.isDocumentVerify + ""}</span>
-                              </li>
+
                             </ul>
                           </div>
 
                           <div class="col-sm-6">
                             <ul>
+                              <li>
+                                <span class="Title">Document Verification </span>
+                                <span class="Discribe">{user.isDocumentVerify=="uploade"?"Uploade":user.isDocumentVerify=="verified"? "Verified":user.isDocumentVerify }</span>
+                              </li>
 
                               <li>
                                 <span class="Title">Address </span>
@@ -148,12 +167,12 @@ const User = ({ match }) => {
 
                               <li>
                                 <span class="Title">Subscription </span>
-                                <span class="Discribe">{user.subscription + ""}</span>
+                                <span class="Discribe">{user.subscription == true ? "Yes" : "No"}</span>
                               </li>
-                              <li>
+                              {/* <li>
                                 <span class="Title">View Documents </span>
                                 <Link className="btn btn-primary" to={`/view/doc/${user._id}`}>Click Here</Link>
-                              </li>
+                              </li> */}
                               {/* 
                               
                               <li>
@@ -176,75 +195,117 @@ const User = ({ match }) => {
                           </div>
                         </div>
                       </div>
+                      <div>
+                        <div class="DetailsContent">
+                          <h3>Wallet Details</h3>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <ul>
+                                <li>
+                                  <span class="Title">Wallet Holder Name</span>
+                                  <span class="Discribe">{wallet.name}</span>
+                                </li>
+                                <li>
+                                  <span class="Title">Status</span>
+                                  <span class="Discribe">{wallet.status}</span>
+                                </li>
+                                <li>
+                                  <span class="Title">Referral Ammount </span>
+                                  <span class="Discribe">{wallet.referral_ammount}</span>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="col-sm-6">
+                              <ul>
 
+                                <li>
+                                  <span class="Title">Earning Ammount </span>
+                                  <span class="Discribe">{wallet.earning_ammount}</span>
+                                </li>
+                                <li>
+                                  <span class="Title">Total Amount</span>
+                                  <span class="Discribe">{wallet.total_amount}</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <div class="tadble-detail">
-                      <h2>Documents</h2>
-                    <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>S.no</th>
-                        <th>Name</th>
-                        <th>Front_Id</th>
-                        <th>Back_Id</th>
-                        <th>status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        user.Documents.map((item, i) => <tr>
-                            <td>{i+1}</td>
-                            <td>{item.name}</td>
-                            <td><img src={CONSTANT.img_url+item.front_Id} height ={30} width= {30} /></td>
-                            <td><img src={CONSTANT.img_url+item.back_Id} height ={30} width= {30} /></td>
-                            <td>{item.status}</td>
-                            <td>
-                              {/* <Link className="btn btn-primary mr-2 " to={`/user/${item._id}`}>view </Link> */}
-                                <Link className="btn btn-primary mr-2" to={`/user/edit/${user._id}`}>Edit</Link>
+                        <h2>Documents</h2>
+                        <div class="verifi">
+                          <li>
+                            {/* <span class="Title">Update Status</span> */}
+                            <i class="fa fa-pencil mr-10" aria-hidden="true"></i>
+                            <Link className="btn btn-primary" to={`/view/doc/${user._id}`}>{user.isDocumentVerify=="uploade"?"Uploade":user.isDocumentVerify=="verified"? "Verified":user.isDocumentVerify }</Link>
+                          </li>
+                        </div>
+                        <Table striped bordered hover>
+                          <thead>
+                            <tr>
+                              <th>S.no</th>
+                              <th>Name</th>
+                              <th>Front_Id</th>
+                              <th>Back_Id</th>
+                              {/* <th>status</th>
+                        <th>Actions</th> */}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {
+                              user.Documents.map((item, i) => <tr>
+                                <td>{i + 1}</td>
+                                <td>{item.name}</td>
+                                <td><img src={CONSTANT.img_url + item.front_Id} height={30} width={30} /></td>
+                                <td><img src={CONSTANT.img_url + item.back_Id} height={30} width={30} /></td>
+                                {/* <td>{item.status}</td> */}
+                                {/* <td> */}
+                                {/* <Link className="btn btn-primary mr-2 " to={`/user/${item._id}`}>view </Link> */}
+                                {/* <Link className="btn btn-primary mr-2" to={`/user/edit/${user._id}`}>Edit</Link> */}
                                 {/* <Link className="btn btn-primary " to="/"> delete</Link> */}
-                                </td>
-                        </tr>)
-}
-                </tbody>
-            </Table>
-                    </div>
-                    <div class="tadble-detail">
-                    <h2>Vehicle List</h2>
-                    <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>S.no</th>
-                        <th>Vehicle Type </th>
-                        <th>Vehicle Number</th>
-                        {/* <th>Document status</th> */}
-                        {/* <th>address</th>
+                                {/* </td> */}
+                              </tr>)
+                            }
+                          </tbody>
+                        </Table>
+                      </div>
+                      <div class="tadble-detail">
+                        <h2>Vehicle List</h2>
+                        <Table striped bordered hover>
+                          <thead>
+                            <tr>
+                              <th>S.no</th>
+                              <th>Vehicle Type </th>
+                              <th>Vehicle Number</th>
+                              {/* <th>Document status</th> */}
+                              {/* <th>address</th>
                          */}
-                         <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                     user.vechileList.map((item, i) => 
-                         <tr>
-                            <td>{i+1}</td>
-                            <td>{item.vehicle_type}</td>
-                            <td>{item.vehicle_number}</td>
-                            <td> <Link className="btn btn-primary mr-2" to={`/user/edit/${user._id}`}>Edit</Link></td>
-                            {/* <td>address</td> */}
-                           
-                        </tr>)
-}
-                    {/* }  */}
-                </tbody>
-            </Table>
-                    </div>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {
+                              user.vechileList.map((item, i) =>
+                                <tr>
+                                  <td>{i + 1}</td>
+                                  <td>{item.vehicle_type}</td>
+                                  <td>{item.vehicle_number}</td>
+                                  <td> {user.isVehicleComplete == true ? "Yes" : "No"}</td>
+                                  {/* <td>address</td> */}
+
+                                </tr>)
+                            }
+                            {/* }  */}
+                          </tbody>
+                        </Table>
+                      </div>
 
 
                     </div>
-            
-                    
+
+
                   </div>
-                  
+
 
                 </div>
               </div>

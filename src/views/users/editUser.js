@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import *as  CONSTANT from '../../constant'
 import '../../css/style.css'
 import image from '../../assets/download.png'
@@ -23,7 +23,8 @@ const EditUser = () => {
         isVehicleComplete,
         isNumberVerify,
         isDocumentVerify,
-        city_id
+        city_id,
+        pincode
     } = user;
     const onInputChange = e => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -74,13 +75,16 @@ const EditUser = () => {
         if (user.city_id) {
             data.city = user.city_id
         }
+        if (user.pincode) {
+            data.pincode = user.pincode
+        }
 
         data._id = user._id
         // data.login_type = 'manual'
         console.log("daaaaaaa", data)
         let response = await axios.put(`${CONSTANT.baseUrl}/api/admin/update-driver`, data);
         if (response.data.code == 200) {
-            // toast("Update successfully");
+            toast("Update successfully");
             setTimeout(function () { history.push("/users"); }, 3000);
             // history.push("/users");
         }
@@ -169,31 +173,36 @@ const EditUser = () => {
                                                             onChange={e => onInputChange(e)} />
                                                     </div>
                                                     <div class="form-group col-sm-6">
-                                                        <label>ProfileCompleted</label>
+                                                        <label>Pincode</label>
+                                                        <input type="text" name="pincode" class="form-control" placeholder="" value={pincode}
+                                                            onChange={e => onInputChange(e)} />
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Profile Completed</label>
                                                         <select class="form-control" name="isProfileCompleted" value={isProfileCompleted}
                                                             onChange={e => onInputChange(e)} >
-                                                            <option value={true}>true</option>
-                                                            <option value={false}>false</option>
+                                                            <option value={true}>Yes</option>
+                                                            <option value={false}>No</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-sm-6">
-                                                        <label>isVehicleComplete</label>
+                                                        <label>Vehicle Complete</label>
                                                         <select class="form-control" name="isVehicleComplete" value={isVehicleComplete}
                                                             onChange={e => onInputChange(e)}>
-                                                            <option value={true}>true</option>
-                                                            <option value={false}>false</option>
+                                                            <option value={true}>Yes</option>
+                                                            <option value={false}>No</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-sm-6">
-                                                        <label>isNumberVerify</label>
+                                                        <label>Number Verify</label>
                                                         <select class="form-control" name="isNumberVerify" value={isNumberVerify}
                                                             onChange={e => onInputChange(e)}>
-                                                            <option value={true}>true</option>
-                                                            <option value={false}>false</option>
+                                                            <option value={true}>Yes</option>
+                                                            <option value={false}>No</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-sm-6">
-                                                        <label>isDocumentVerify</label>
+                                                        <label>Document Verify</label>
                                                         <select class="form-control" name="isDocumentVerify" value={isDocumentVerify}
                                                             onChange={e => onInputChange(e)}>
                                                             <option value="verified">verified</option>
@@ -209,7 +218,7 @@ const EditUser = () => {
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-sm-6">
-                                                        <label>driverStatus</label>
+                                                        <label>Driver Status</label>
                                                         <select class="form-control" name="driverStatus" value={driverStatus}
                                                             onChange={e => onInputChange(e)}>
                                                             <option value="active">active</option>
@@ -223,7 +232,7 @@ const EditUser = () => {
                                                             onChange={e => onInputChange(e)} />
                                                     </div> */}
                                                     <div class="form-group col-sm-6">
-                                                        <label>Loging Type</label>
+                                                        <label>Driver Type</label>
                                                         <select class="form-control" name="loginType" value={loginType}
                                                             onChange={e => onInputChange(e)}>
                                                             <option value="Driver_partner">Driver partner</option>
@@ -251,6 +260,7 @@ const EditUser = () => {
                     <script src="js/owl.carousel.js "></script>
 
                 </body>
+                <ToastContainer/>
             </html>
         </>
     )
