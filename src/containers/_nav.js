@@ -36,6 +36,7 @@ const _nav = [
 
     // ]
   },
+  
   {
     _tag: 'CSidebarNavItem',
     name: 'Customers',
@@ -55,20 +56,20 @@ const _nav = [
 
     // ]
   },
-  // {
-  //   _tag: 'CSidebarNavItem',
-  //   name: 'News',
-  //   to: '/News',
-  //   icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
-
-  // },
-  // {
-  //   _tag: 'CSidebarNavItem',
-  //   name: 'Blogs',
-  //   to: '/Blogs',
-  //   icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
-
-  // },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Vehicle List',
+    to: '/vehicles',
+    icon: 'cil-puzzle',
+   
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Manege Fare',
+    to: '/vehicles/types',
+    icon: 'cil-puzzle',
+   
+  },
   {
     _tag: 'CSidebarNavDropdown',
     name: 'Pages',

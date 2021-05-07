@@ -11,6 +11,11 @@ const EditProfile = () => {
     const { id } = useParams();
     const [user, setUser] = useState({
     });
+    const [file, setFile] = useState(
+        {
+            image: ""
+        }
+    );
 
     const { name,
         number,
@@ -18,22 +23,36 @@ const EditProfile = () => {
         location,
         updatedAt
     } = user;
-    const onInputChange = e => {
-        setUser({ ...user, [e.target.name]: e.target.value });
-        console.warn("oninput change data ", user)
+    const onInputChange = async e => {
+        console.warn("oninput ce.target image ", e.target.files[0])
+        if( e.target.files[0]){
+            let reader = await new FileReader();
+            reader.readAsDataURL(e.target.files[0]);
+            reader.onload = function () {
+                console.warn(reader.result)
+                setFile({image:reader.result })
+                return
+            };
+        }else{
+            setUser({ ...user, [e.target.name]: e.target.value });
+            console.warn("oninput change data ", user)
+        }
+       
     };
-
     useEffect(() => {
         loadUser();
     }, []);
 
     const onSubmit = async e => {
         e.preventDefault();
-        console.log("request", user)
+        console.log("request", user, file)
         let data = {}
         // = user
 
 
+        if (file.image) {
+            data.profile_pic = file.image
+        }
         if (user.name) {
             data.name = user.name
         }
@@ -71,6 +90,7 @@ const EditProfile = () => {
         await axios.get(`${CONSTANT.baseUrl}/api/admin/view-customer?_id=${id}`).then((res) => {
             console.log("responseload", res.data)
             setUser(res.data.data);
+            setFile({image:res.data.data.profile_pic })
         }).catch(err => {
             console.warn(err)
         })
@@ -111,12 +131,12 @@ const EditProfile = () => {
 
                                         <form>
                                             <figure>
-                                                <img src={image} />
+                                                <img src={file.image?CONSTANT.img_url + file.image:image} height={150} width={600}  />
                                             </figure>
 
                                             <figcaption>
                                                 <span><i class="fa fa-upload" aria-hidden="true"></i>Upload Images</span>
-                                                <input type="file" name="" />
+                                                <input type="file" name="image" onChange={e => onInputChange(e)} />
                                                 <button><i class="fa fa-check" aria-hidden="true"></i></button>
                                             </figcaption>
                                         </form>

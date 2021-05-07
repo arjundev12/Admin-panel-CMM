@@ -36,14 +36,19 @@ const Cards = React.lazy(() => import('./views/base/cards/Cards'));
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
 // const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
 
-const Users = React.lazy(() => import('./views/users/Users'));
-const User = React.lazy(() => import('./views/users/User'));
-const EditUser = React.lazy(() => import('./views/users/editUser'));
-const AddUsers = React.lazy(() => import('./views/users/addUser'));
+const Users = React.lazy(() => import('./views/drivers/Users'));
+const User = React.lazy(() => import('./views/drivers/User'));
+const EditUser = React.lazy(() => import('./views/drivers/editUser'));
+const AddUsers = React.lazy(() => import('./views/drivers/addUser'));
 const Customers = React.lazy(() => import('./views/customers/customerList'));
 const Wallet = React.lazy(() => import('./views/wallets/wallets'));
 const ViewWallet = React.lazy(() => import('./views/wallets/viewWallet'));
 const EditProfile = React.lazy(() => import('./views/customers/editProfile'));
+const ViewDoc = React.lazy(()=> import('./views/drivers/viewDoc'))
+const Vehicle = React.lazy(()=> import('./views/drivers/vehicle'))
+const VehicleType = React.lazy(()=> import('./views/drivers/vehicleType'))
+const EditVehicleType = React.lazy(()=> import('./views/drivers/editVehicleType'))
+const EditVehicle = React.lazy(()=> import('./views/drivers/editVehicle'))
 
 
 const News = React.lazy(() => import('./views/news/news'));
@@ -51,7 +56,7 @@ const Blogs = React.lazy(() => import('./views/blogs/blogs'));
 const AddBlogs = React.lazy(() => import('./views/blogs/addblog'));
 const Login = React.lazy(() => import('./views/pages/login/Login'));
 const AddNews = React.lazy(() => import('./views/news/addNews'));
-const ViewDoc = React.lazy(()=> import('./views/users/viewDoc'))
+
 
 
 const routes = [
@@ -63,10 +68,15 @@ const routes = [
   { path: '/user/:id', exact: true, name: 'User Details', component: User },
   { path: '/user/edit/:id', exact: true, name: 'Edit User', component: EditUser },
   { path: '/wallets/:type', exact: true, name: 'walletd', component: Wallet },
-  { path: '/wallet/:id/:type', exact: true, name: 'ViewWallet', component: ViewWallet },
+  { path: '/wallet/:type/:id', exact: true, name: 'ViewWallet', component: ViewWallet },
   { path: '/customers', exact: true, name: 'customers', component: Customers },
   { path: '/customer/edit/:id', exact: true, name: 'editProfile', component: EditProfile },
-  { path: '/view/doc/:id', exact: true, name: 'viewDoc', component: ViewDoc }
+  { path: '/view/doc/:id', exact: true, name: 'viewDoc', component: ViewDoc },
+  { path: '/vehicles', exact: true, name: 'vehicles', component: Vehicle },
+  { path: '/vehicles/update/:id', exact: true, name: 'EditVehicle', component: EditVehicle },
+
+  { path: '/vehicles/types', exact: true, name: 'vehicleType', component:  VehicleType},
+  { path: '/vehicles/edit/:id', exact: true, name: 'EditVehicleType', component:  EditVehicleType}
   //=====================================================================//
 
   //  { path: '/news', exact: true, name: 'news', component: News },

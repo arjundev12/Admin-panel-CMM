@@ -72,6 +72,7 @@ const Customers = () => {
                             <td>
                                 {/* <Link className="btn btn-primary mr-2 " to={`/user/${item._id}`}>view </Link> */}
                                 <Link className="btn btn-primary mr-2" to={`/customer/edit/${item._id}`}> edit </Link>
+                                <Link className="btn btn-primary mr-2" to={`/wallet/customer/${item._id}`}> wallet </Link>
                                 {/* <Link className="btn btn-primary " to="/"> delete</Link> */}
                                 </td>
                         </tr>)
