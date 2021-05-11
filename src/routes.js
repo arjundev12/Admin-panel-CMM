@@ -49,6 +49,9 @@ const Vehicle = React.lazy(()=> import('./views/drivers/vehicle'))
 const VehicleType = React.lazy(()=> import('./views/drivers/vehicleType'))
 const EditVehicleType = React.lazy(()=> import('./views/drivers/editVehicleType'))
 const EditVehicle = React.lazy(()=> import('./views/drivers/editVehicle'))
+const Cities = React.lazy(()=> import('./views/cities/city'))
+const AddCity = React.lazy(()=> import('./views/cities/addCity'))
+
 
 
 const News = React.lazy(() => import('./views/news/news'));
@@ -76,7 +79,9 @@ const routes = [
   { path: '/vehicles/update/:id', exact: true, name: 'EditVehicle', component: EditVehicle },
 
   { path: '/vehicles/types', exact: true, name: 'vehicleType', component:  VehicleType},
-  { path: '/vehicles/edit/:id', exact: true, name: 'EditVehicleType', component:  EditVehicleType}
+  { path: '/vehicles/edit/:id', exact: true, name: 'EditVehicleType', component:  EditVehicleType},
+  { path: '/cities', exact: true, name: 'Cities', component:  Cities},
+  { path : '/addcity', exact :true, name : 'add city', component: AddCity}
   //=====================================================================//
 
   //  { path: '/news', exact: true, name: 'news', component: News },

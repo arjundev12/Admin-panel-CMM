@@ -316,6 +316,9 @@ i.fa.fa-pencil {
     margin-right: 70px;
     font-size: 26px;
 }
+a.btn.btn-behance.btn-primary {
+    float: right;
+}
 .verifi {
     float: right;
 }

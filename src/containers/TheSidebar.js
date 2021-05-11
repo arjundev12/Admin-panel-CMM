@@ -16,6 +16,7 @@ import CIcon from '@coreui/icons-react'
 
 // sidebar nav config
 import navigation from './_nav'
+import logImage from '../assets/2logo.png'
 
 
 const TheSidebar = () => {
@@ -28,7 +29,7 @@ const TheSidebar = () => {
       onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
     >
       <CSidebarBrand className="d-md-down-none" to="/">
-       {/* <img src= {} /> */}
+       <img src= {logImage} height="51" width = "300" />
       </CSidebarBrand>
       <CSidebarNav>
 

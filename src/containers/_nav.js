@@ -71,6 +71,13 @@ const _nav = [
    
   },
   {
+    _tag: 'CSidebarNavItem',
+    name: 'Manege cities',
+    to: '/cities',
+    icon: 'cil-puzzle',
+   
+  },
+  {
     _tag: 'CSidebarNavDropdown',
     name: 'Pages',
     route: '/pages',

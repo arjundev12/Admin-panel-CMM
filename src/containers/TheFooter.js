@@ -6,7 +6,7 @@ const TheFooter = () => {
     <CFooter fixed={false}>
       <div>
      
-        <span className="ml-1">callmymover & 2021 Reserved</span>
+        <span className="ml-1">callmymoover & 2021 Reserved</span>
       </div>
       <div className="mfs-auto">
     
