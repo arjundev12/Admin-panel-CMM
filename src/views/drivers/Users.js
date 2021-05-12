@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import *as  CONSTANT from '../../constant'
 import Pagination from '../pagination/pagination'
+import '../../css/style.css'
 
 const Users = () => {
     const history = useHistory()
@@ -78,7 +79,7 @@ const Users = () => {
                         <th>Name</th>
                         <th>Profile Complete</th>
                         <th>Number</th>
-                        <th>address</th>
+                        <th class="address">address</th>
                         <th>Status</th>
                         <th>Doc Status</th>
                         <th>Actions</th>

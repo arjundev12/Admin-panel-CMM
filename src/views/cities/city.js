@@ -100,15 +100,60 @@ const City = () => {
             handleClose()
             loadcities(page);
         }
-        
+
+    }
+    //====================================add pin code===================================//
+    const [showcity, setShowCity] = useState(false);
+    const [cityData, setCityData] = useState({
+        name: ""
+    });
+    const [pin, setPin] = useState({
+        code: ""
+    });
+
+    const [error, setError] = useState({})
+
+    const handleCloseCity = () => setShowCity(false);
+
+    const handleShowCity = async (e, item) => {
+        setShowCity(true);
+        console.warn("dataataaa", item)
+        await setCityData(item)
+    }
+    const onInputChangePin = async (e) => {
+        console.warn("onInputChangePin", e.target.value.length)
+        if (e.target.value.length == 6) {
+            await setPin({ code: e.target.value })
+            setError({})
+        } else {
+            setError({ pin: "invalid pin" })
+        }
+    }
+    const onSubmitPin = async (e) => {
+        let data = {
+            cityid: cityData.id,
+            name : pin.code
+        }
+
+        const res = await axios.post(`${CONSTANT.baseUrl}/api/admin/add-pin`, data);
+        if (res.data.code == 200) {
+            toast(res.data.message)
+            handleCloseCity()
+            loadcities(page);
+        } else {
+            toast(res.data.message)
+            handleCloseCity()
+            loadcities(page);
+        }
     }
 
+
     return (
-        <div>
-            <Link className="btn btn-primary" to="/dashboard">
+        <div class="btn-right">
+            <Link className="btn btn-primary btn-home" to="/dashboard">
                 back to Home
        </Link>
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant="primary btn-link" onClick={handleShow}>
                 add city
       </Button>
             <Table striped bordered hover>
@@ -116,7 +161,7 @@ const City = () => {
                     <tr>
                         <th>S.no</th>
                         <th>Name</th>
-                        <th>Status</th>
+                        <th class="status">Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -132,12 +177,15 @@ const City = () => {
                                 {/* <option value="blocked">Block</option> */}
                             </select></td>
                             <td>
-                                <Link className="btn btn-primary mr-2 " to={`/view-city/${item._id}`}>view </Link>
+                                {/* <Link className="btn btn-primary mr-2 " to={`/view-city/${item._id}`}>view </Link> */}
+                                <Button className="btn btn-primary mr-2 " onClick={e => handleShowCity(e, item)}>
+                                    Add Pincode
+                                </Button>
                                 {/* <Link className="btn btn-primary mr-2" to={`/wallet/customer/${item._id}`}> delete </Link> */}
                                 {/* <Link className="btn btn-primary " to="/"> delete</Link> */}
                             </td>
                         </tr>)
-                    }   
+                    }
                 </tbody>
             </Table>
             <Modal show={show} onHide={handleClose}>
@@ -145,25 +193,31 @@ const City = () => {
                     <Modal.Title>Add City</Modal.Title>
                 </Modal.Header>
                 <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label>Select State Name</label>
-                        <select class="form-control" name="regionName" onChange={e => onInputChangeRegion(e)} value={regionName}>
-                            {
-                                region.map((item, i) =>
-                                    <option value={item.isoCode} >{item.name}</option>
-                                )
-                            }
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <label>Select City Name</label>
-                        <select class="form-control" name="cityName" onChange={e => onInputChangeCity(e)} value={cityName}>
-                            {
-                                cityArray.map((item, i) =>
-                                    <option value={item.name} >{item.name}</option>
-                                )
-                            }
-                        </select>
+                    <div class="popupselect">
+                        <div class="form-group col-sm-6">
+                            <div class="state-name">
+                                <label>State Name</label>
+                                <select class="form-control" name="regionName" onChange={e => onInputChangeRegion(e)} value={regionName}>
+                                    {
+                                        region.map((item, i) =>
+                                            <option value={item.isoCode} >{item.name}</option>
+                                        )
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <div class="city">
+                                <label>City Name</label>
+                                <select class="form-control" name="cityName" onChange={e => onInputChangeCity(e)} value={cityName}>
+                                    {
+                                        cityArray.map((item, i) =>
+                                            <option value={item.name} >{item.name}</option>
+                                        )
+                                    }
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <Modal.Footer>
@@ -174,6 +228,31 @@ const City = () => {
                         Submit
           </Button>
                 </Modal.Footer>
+            </Modal>
+            <Modal show={showcity} onHide={handleCloseCity}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{cityData.name}</Modal.Title>
+                </Modal.Header>
+                <div class="row">
+                    <div class="state-name-code">
+                        <label>Pincode</label>
+                        <input  type="text" name="code"
+                            class="form-control" placeholder=""
+                            onChange={e => onInputChangePin(e)} />
+                        <div className="text-danger">{error.pin}</div>
+                    </div>
+                </div>
+                <div class ='footer-side'>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseCity}>
+                        Close
+          </Button>
+                    <Button variant="primary" onClick={e => onSubmitPin(e)}>
+                        Submit
+          </Button>
+                </Modal.Footer>
+                </div>
+                
             </Modal>
             <ToastContainer />
             {/* <Pagination

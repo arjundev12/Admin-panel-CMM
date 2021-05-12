@@ -319,6 +319,83 @@ i.fa.fa-pencil {
 a.btn.btn-behance.btn-primary {
     float: right;
 }
+button.btn.btn-primary.btn-link {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #fff !important;
+	float:right;
+}
+.popupselect {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+	padding: 44px;
+}
+
+
+.modal-content {
+    width: 600px !important;
+    height: 364px !important;
+}
+a.btn.btn-primary.btn-home {
+    margin-bottom: 10px;
+}
+.city label {
+    font-size: 20px;
+	color: #000;
+    /* text-align: left; */
+}
+.footer-side{
+	margin-top: 100px;
+}
+.state-name-code{
+	margin-left: 39px;
+	font-size: 20px;
+}
+th.address {
+    text-overflow: ellipsis;
+    overflow: hidden;
+	width: 14%;
+}
+th.status {
+    width: 12%;
+}
+.modal-title.h4 {
+    font-weight: 700;
+}
+.state-name label {
+    /* margin-right: 12px; */
+    font-size: 20px;
+    color: #000;
+}
+.state-name {
+    text-align: left;
+}
+.city{
+	text-align: left;
+}
+.state-name select {
+    width: 365px;
+    height: 45px;
+}
+.city select {
+    height: 45px;
+}
+.popupselect .form-control {
+    color: #2a252599;
+}
+/* .city {
+    display: flex;
+}
+.state-name {
+    display: flex;
+
+} */
+.modal-footer {
+    margin-top: 36px;
+}
 .verifi {
     float: right;
 }
