@@ -85,6 +85,13 @@ const _nav = [
    
   },
   {
+    _tag: 'CSidebarNavItem',
+    name: 'Manege static content',
+    to: '/cms',
+    icon: 'cil-puzzle',
+   
+  },
+  {
     _tag: 'CSidebarNavDropdown',
     name: 'Pages',
     route: '/pages',

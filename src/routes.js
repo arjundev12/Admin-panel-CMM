@@ -52,6 +52,8 @@ const EditVehicle = React.lazy(()=> import('./views/drivers/editVehicle'))
 const Cities = React.lazy(()=> import('./views/cities/city'))
 const AddCity = React.lazy(()=> import('./views/cities/addCity'))
 const videos = React.lazy(()=> import('./views/videos/traningVideos'))
+const Cms = React.lazy(()=> import('./views/cms/cms'))
+const EditCms = React.lazy(()=> import('./views/cms/editCms'))
 
 
 
@@ -83,7 +85,10 @@ const routes = [
   { path: '/vehicles/edit/:id', exact: true, name: 'EditVehicleType', component:  EditVehicleType},
   { path: '/cities', exact: true, name: 'Cities', component:  Cities},
   { path : '/addcity', exact :true, name : 'add city', component: AddCity},
-  { path : '/videos', exact :true, name : 'Videos', component: videos }
+  { path : '/videos', exact :true, name : 'Videos', component: videos },
+  { path : '/cms', exact :true, name : 'Cms', component: Cms },
+  { path : '/cms/edit/:id', exact :true, name : 'Cms Edit', component: EditCms }
+  
  
   //=====================================================================//
 
