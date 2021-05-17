@@ -78,6 +78,13 @@ const _nav = [
    
   },
   {
+    _tag: 'CSidebarNavItem',
+    name: 'Manege Training video',
+    to: '/videos',
+    icon: 'cil-puzzle',
+   
+  },
+  {
     _tag: 'CSidebarNavDropdown',
     name: 'Pages',
     route: '/pages',

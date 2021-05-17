@@ -399,6 +399,9 @@ th.status {
 .verifi {
     float: right;
 }
+.upload-video{
+	float: right;
+}
 .btn-sumbit {
 	display: inline-block;
 padding: 9px 30px;
